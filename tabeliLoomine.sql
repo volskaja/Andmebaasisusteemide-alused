@@ -26,3 +26,29 @@ values(
 'karina','soldatenko','123','kisa','2022-09-15'),
 ('mahsa','kirkorova','65656565','tapa','2022-09-15')
 select * from opilane;
+-----------------------------------------------------------------------------------
+CREATE TABLE language
+(
+ID int NOT NULL PRIMARY KEY,
+Code char(3) NOT NULL,
+Language varchar(50) NOT NULL,
+IsOfficial bit,
+Percentage decimal(5,2)
+);
+
+--tabeli andmete lisamine
+Select * from language;
+insert into language(ID,code, Language, IsOfficial, Percentage)
+values (100, 'EST','Eesti', 1, 81);
+
+--tabeli struktuuri muutmine
+alter table Language ADD Capital varchar(20); 
+
+--veergu kustutamine
+alter table Language DROP COLUMN Capital; 
+----
+insert into language(ID,code, Language, IsOfficial, Percentage, Capital)
+values (105, 'I','Italia', 1, 90.2, 'Barselona');
+--uuendamine
+UPDATE language SET Capital='Barselona'
+WHERE ID=105
