@@ -52,3 +52,5 @@ values (101, 'FIN','Soome', 1, 96.5, 'Helsinki');
 --uuendamine
 UPDATE language SET Capital='Tallinn'
 WHERE ID=100
+--tabeli kustutamine
+DROP TABLE language
