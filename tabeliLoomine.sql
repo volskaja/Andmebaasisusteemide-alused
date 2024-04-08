@@ -48,7 +48,7 @@ alter table Language ADD Capital varchar(20);
 alter table Language DROP COLUMN Capital; 
 ----
 insert into language(ID,code, Language, IsOfficial, Percentage, Capital)
-values (105, 'I','Italia', 1, 90.2, 'Barselona');
+values (101, 'FIN','Soome', 1, 96.5, 'Helsinki');
 --uuendamine
-UPDATE language SET Capital='Barselona'
-WHERE ID=105
+UPDATE language SET Capital='Tallinn'
+WHERE ID=100
