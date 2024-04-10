@@ -54,3 +54,71 @@ UPDATE language SET Capital='Tallinn'
 WHERE ID=100
 --tabeli kustutamine
 DROP TABLE language
+------------------------------
+--tabeli Ryhm loomine
+CREATE TABLE ryhm(
+ryhmId int  Primary Key identity(1,1),
+ryhmNimetus varchar(20) UNIQUE,
+osakond char(3));
+SELECT * FROM  ryhm;
+Insert into ryhm(ryhmNimetus, osakond)
+VALUES ('LOGITPE23', 'IT');
+SELECT * FROM  ryhm;
+select * from opilane;
+--foreign key --->pk teises tabelis
+ALTER TAbLE opilane ADD ryhmId int
+--tabeli opilane uuendamine
+Update opilane SET ryhmId=2;
+--FK lisamine opilane tabelisse
+ALTER TABLE opilane
+ADD FOREIGN KEY (ryhmId) REFERENCES ryhm(ryhmId)
+--kutsutamine
+drope table ....;
+alter table ... drope column ...;
+
+--tabeli ryhmajuhataja loomine
+CREATE TABLE ryhmajuhataja(
+juhatajaId int  Primary Key identity(1,1),
+eesnimi varchar(20) UNIQUE,
+perenimi varchar(25),
+telefon varchar(20));
+
+INSERT INTO ryhmajuhataja(eesnimi,perenimi,telefon)
+VALUES ('karina', 'soldatenko','76767676')
+SELECT *FROM ryhmajuhataja;
+SELECT *FROM ryhm;
+
+ALTER TABLE ryhm ADD juhatajaId int
+--tabeli opilane uuendamine
+Update opilane SET juhatajaId=1;
+--FK lisamine opilane tabelisse
+ALTER TABLE ryhm
+ADD FOREIGN KEY (juhatajaId) REFERENCES ryhmajuhataja(juhatajaId)
+
+Insert into ryhm(ryhmNimetus, osakond, juhatajaId)
+VALUES ('LOGITGV23', 'IT', 1)
+------------------------------------------
+НЕ РАБОТАЕТ
+CREATE TABLE hinnang (
+hinnangID int PRIMARY KEY IDENTITY(1,1),
+kuupaev date UNIQUE,
+opilaneID int,
+ryhmajuhatajaID int,
+hinnang text
+);
+SELECT * FROM ryhmajuhataja;
+SELECT * FROM ryhm;
+SELECT * FROM hinnang;
+SELECT * FROM opilane;
+
+INSERT INTO hinnang (kuupaev, opilaneID, ryhmajuhatajaID, hinnang)
+VALUES ('2024-10-09', '56', '67', 'nii');
+
+ALTER TABLE opilane ADD hinnang int;
+UPDATE opilane SET hinnang=1;
+
+ALTER TABLE ryhm
+
+ADD CONSTRAINT FK_juhatajaId FOREIGN KEY (juhatajaId) REFERENCES ryhmajuhataja(juhatajaId);
+INSERT INTO ryhm (ryhmNimetus, osakond, juhatajaId)
+VALUES ('LOGITGV23', 'IT', 1);
