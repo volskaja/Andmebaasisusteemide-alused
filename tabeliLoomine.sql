@@ -122,3 +122,84 @@ ALTER TABLE ryhm
 ADD CONSTRAINT FK_juhatajaId FOREIGN KEY (juhatajaId) REFERENCES ryhmajuhataja(juhatajaId);
 INSERT INTO ryhm (ryhmNimetus, osakond, juhatajaId)
 VALUES ('LOGITGV23', 'IT', 1);
+
+
+
+
+
+KINO
+---git cmd
+---git clone ....
+---git add...
+---git commit -a -m "tabel ... on loodud"
+
+create DATABASE kinoteatrSoldatenko
+
+
+--table filmType
+CREATE TABLE filmType(
+	filmTypeID int Primary key identity(1,1),
+	filmType varchar(25),
+	kirjeldus TEXT);
+select * from filmType;
+INSERT INTO filmType (filmType,kirjeldus)
+VALUES ('2D', 'väga põnev 3D efekt, kasuta prillid');
+---git add...
+---git commit -a -m "tabel ... on loodud"
+
+CREATE TABLE rezisor(
+	rezisorID int Primary key identity(1,1),
+	eesnimi varchar(25),
+	perenimi varchar(25));
+select * from rezisor;
+INSERT INTO rezisor(eesnimi,perenimi)
+VALUES ('Viktor','Medvedeev');
+
+
+CREATE TABLE zanr(
+	zanrID int Primary key identity(1,1),
+	zanrNimi varchar(25),
+	znarKirjeldus TEXT);
+select * from zanr;
+INSERT INTO zanr(zanrNimi, znarKirjeldus)
+VALUES ('horror','haha');
+
+CREATE TABLE kinokava(
+	kinokavaID int Primary key identity(1,1),
+	kuupäev DATETIME,
+	filmNimetus int,
+	piletihind int);
+select * from kinokava;
+INSERT INTO kinokava(kuupäev, filmNimetus, piletihind)
+VALUES ('2024-10-08','haha','8.50');
+
+CREATE TABLE piletiMyyk(
+	piletMyykID int Primary key identity(1,1),
+	kogus int,
+	kinokavaID int);
+select * from zanr;
+INSERT INTO zanr(zanrNimi, znarKirjeldus)
+VALUES ('39.50','88');
+
+
+
+
+CREATE TABLE film(
+	filmID int Primary key identity(1,1),
+	filmNimetus varchar(25),
+	zanrID int,
+	pikkus int,
+	rezisorID int,
+	filmTypeID int,
+	reklaam image);
+select * from film;
+select * from filmType;
+
+--FK: film-->filmType
+ALTER TABLE film ADD FOREIGN KEY(filmTypeID) 
+references filmType (filmTypeID);
+INSERT INTO film(filmNimetus,zanrID,pikkus,rezisorID,filmTypeID)
+values('Ripley',1,200,1,100);
+
+
+
