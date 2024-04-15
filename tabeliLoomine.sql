@@ -123,68 +123,67 @@ ADD CONSTRAINT FK_juhatajaId FOREIGN KEY (juhatajaId) REFERENCES ryhmajuhataja(j
 INSERT INTO ryhm (ryhmNimetus, osakond, juhatajaId)
 VALUES ('LOGITGV23', 'IT', 1);
 
+-----------------------------------------------------------------------------------------------
 
-
-
-
-KINO
----git cmd
----git clone ....
----git add...
----git commit -a -m "tabel ... on loodud"
-
-create DATABASE kinoteatrSoldatenko
-
-
---table filmType
+KINOTEATR
 CREATE TABLE filmType(
 	filmTypeID int Primary key identity(1,1),
 	filmType varchar(25),
 	kirjeldus TEXT);
 select * from filmType;
-INSERT INTO filmType (filmType,kirjeldus)
-VALUES ('2D', 'väga põnev 3D efekt, kasuta prillid');
----git add...
----git commit -a -m "tabel ... on loodud"
-
+INSERT INTO filmType (filmType, kirjeldus)
+VALUES ('3D','ilus 3D film');
+--table rezisor
 CREATE TABLE rezisor(
 	rezisorID int Primary key identity(1,1),
 	eesnimi varchar(25),
 	perenimi varchar(25));
 select * from rezisor;
-INSERT INTO rezisor(eesnimi,perenimi)
-VALUES ('Viktor','Medvedeev');
-
-
+INSERT INTO rezisor(eesnimi, perenimi)
+VALUES ('Viktor','Medveedev');
+--table zanr
 CREATE TABLE zanr(
 	zanrID int Primary key identity(1,1),
 	zanrNimi varchar(25),
-	znarKirjeldus TEXT);
+	zanrKirjeldus TEXT);
 select * from zanr;
-INSERT INTO zanr(zanrNimi, znarKirjeldus)
-VALUES ('horror','haha');
+INSERT INTO zanr(zanrNimi, zanrKirjeldus)
+VALUES ('horror','horror film');
+--kõik select
+select * from filmType;
+select * from rezisor;
+select * from zanr;
+select * from piletiMyyk;
+select * from kinokava;
+select * from filmi;
 
+--table kinokava
 CREATE TABLE kinokava(
 	kinokavaID int Primary key identity(1,1),
-	kuupäev DATETIME,
+	kuupaev DATETIME,
 	filmNimetus int,
 	piletihind int);
 select * from kinokava;
-INSERT INTO kinokava(kuupäev, filmNimetus, piletihind)
-VALUES ('2024-10-08','haha','8.50');
+INSERT INTO kinokava(kuupaev, filmNimetus, piletihind)
+VALUES ('2024-10-22',1, '5');
+DROP TABLE kinokava;
 
+--table piletiMyyk
 CREATE TABLE piletiMyyk(
-	piletMyykID int Primary key identity(1,1),
+	piletiMyykID int Primary key identity(1,1),
 	kogus int,
 	kinokavaID int);
-select * from zanr;
-INSERT INTO zanr(zanrNimi, znarKirjeldus)
-VALUES ('39.50','88');
+select * from piletiMyyk;
+INSERT INTO piletiMyyk(kogus, kinokavaID)
+VALUES ('18',0);
+--FK: piletiMyyk --> kinokava
+ALTER TABLE piletiMyyk ADD FOREIGN KEY (kinokavaID) 
+references kinokava(kinokavaID);
+DROP TABLE piletiMyyk;
 
 
-
-
-CREATE TABLE film(
+--table film
+CREATE TABLE filmi(
 	filmID int Primary key identity(1,1),
 	filmNimetus varchar(25),
 	zanrID int,
@@ -192,14 +191,31 @@ CREATE TABLE film(
 	rezisorID int,
 	filmTypeID int,
 	reklaam image);
-select * from film;
-select * from filmType;
+select * from filmi;
+INSERT INTO filmi(filmTypeID,rezisorID, zanrID, filmNimetus, pikkus, reklaam )  --filmNimetus, pikkus,
+VALUES (4,4,1,'vova', '6', '8');
 
---FK: film-->filmType
-ALTER TABLE film ADD FOREIGN KEY(filmTypeID) 
-references filmType (filmTypeID);
-INSERT INTO film(filmNimetus,zanrID,pikkus,rezisorID,filmTypeID)
-values('Ripley',1,200,1,100);
+DROP TABLE filmi;
+
+--FK: film --> filmType
+ALTER TABLE filmi ADD FOREIGN KEY (filmTypeID) 
+references filmType(filmTypeID);
+
+--FK: film --> rezisor
+ALTER TABLE filmi ADD FOREIGN KEY (rezisorID) 
+references rezisor(rezisorID);
+
+--FK: film --> zanrID
+ALTER TABLE filmi ADD FOREIGN KEY (zanrID) 
+references zanr(zanrID);
+
+--FK: kinokava --> film
+ALTER TABLE kinokava ADD FOREIGN KEY (filmNimetus) 
+references film(filmID);
+
+
+
+
 
 
 
