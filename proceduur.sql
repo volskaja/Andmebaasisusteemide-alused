@@ -1,3 +1,4 @@
+
 CREATE DATABASE KarinaProcedure;
 USE KarinaProcedure;
 
@@ -63,6 +64,7 @@ insert into film (filmNimetus, kestvus, rezisoor, v_aasta) values ('Love Life', 
 
 select * from film;
 
+--------------------------------------------------------------
 
 select * from film;
 --filmiNimetus otsing esimese tähe järgi
@@ -79,3 +81,23 @@ ENd;
 EXEC otsing1Taht 'S';
 
 
+--------------------------------------------------------------
+--protseduur mis kutsutab sisestatu id järgi
+CREATE Procedure kustutaFilm 
+@id int
+AS
+BEGIN
+select * from film;
+delete from film WHERE filmId-@id;
+select * from film;
+END;
+
+EXEC kustutaFilm 2;
+--------------------------------------------------------------
+--proceduur, mis loeb filmide arv kokku
+
+create procedure FilmideARV
+AS
+select COUNT(*) AS 'filmide ARV' from film;
+
+EXEC FilmideARV
