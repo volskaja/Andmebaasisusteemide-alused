@@ -62,3 +62,20 @@ insert into film (filmNimetus, kestvus, rezisoor, v_aasta) values ('Sidewalks of
 insert into film (filmNimetus, kestvus, rezisoor, v_aasta) values ('Love Life', 152, 'Rufe Dallender', 2011);
 
 select * from film;
+
+
+select * from film;
+--filmiNimetus otsing esimese tähe järgi
+CREATE Procedure otsing1Taht
+@taht char(1)
+AS
+Begin
+	select * from film 
+	WHERE filmNimetus LIKE CONCAT(@taht,'%');
+ENd;
+
+--käivitamine
+
+EXEC otsing1Taht 'S';
+
+
