@@ -101,3 +101,41 @@ AS
 select COUNT(*) AS 'filmide ARV' from film;
 
 EXEC FilmideARV
+
+--------------------------------------------------------------
+
+--proceduur mis täidab tabeli film
+
+create procedure lisaFilm
+@uusfilm varchar(50),
+@kestvus int,
+@rezisoor varchar(50),
+@aasta int
+AS
+BEGIN
+insert into film (filmNimetus, kestvus, rezisoor, v_aasta)
+values (@uusfilm, @kestvus, @rezisoor, @aasta);
+select * from film;
+END
+EXEC lisaFilm 'Test', 222,'Test', 2000;
+
+--------------------------------------------------------------
+
+--proceduur, mis uuendab rezisoor andmed filmiNimi järgi
+
+create procedure uuendaRezisorFilmis
+@uustezisoor varchar(50),
+@filmNimetus varchar(50)
+AS
+BEGIN
+select * from film WHERE  filmNimetus=@filmNimetus;
+UPDATE film SET rezisoor=@uustezisoor
+WHERE filmNimetus=@filmNimetus;
+select * from film WHERE filmNimetus=@filmNimetus;
+
+END;
+
+EXEC uuendaRezisorFilmis 'Oskar Luts', 'Test';
+
+--------------------------------------------------------------
+
