@@ -16,3 +16,9 @@ insert into film (filmNimetus, kestvus, rezisoor, v_aasta) values ('Up in the Wi
 insert into film (filmNimetus, kestvus, rezisoor, v_aasta) values ('All the Little Animals', 203, 'Nicoline Halleybone', 2002);
 insert into film (filmNimetus, kestvus, rezisoor, v_aasta) values ('Gnome-Mobile, The', 217, 'Waylan Feldstern', 1968);
 insert into film (filmNimetus, kestvus, rezisoor, v_aasta) values ('7th Dawn, The', 237, 'Tony Ranstead', 2003);
+
+CREATE PROCEDURE `otsing1taht`(IN `taht` CHAR(1)) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER 
+  begin
+	select * from film
+	where filmnimetus like concat(taht,'%');
+end;
