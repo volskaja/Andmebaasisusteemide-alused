@@ -56,3 +56,12 @@ end;
 
 CREATE PROCEDURE `lisafilm`(IN `uusfilm` VARCHAR(50), IN `kestvus` INT, IN `rezisoor` VARCHAR(50), IN `aasta` INT) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER begin insert into film (filmnimetus, kestvus, rezisoor, v_aasta) values (uusfilm, kestvus, rezisoor, aasta); select * from film; end; 
 "SET @p0='Kevad on kole'; SET @p1='2'; SET @p2='Loodus Maa'; SET @p3='2024'; CALL `lisafilm`(@p0, @p1, @p2, @p3); "--если делать по умному
+---------------------------------------------------------------------------------
+begin
+select * from film where filmnimetus LIKE concat(filmNimi);
+update film set rezisoor=uusrezisoor
+where filmnimetus=filmnimetus;
+select * from film where filmnimetus LIKE concat(filmNimi);
+end
+CREATE PROCEDURE `uuendarezisoorfilmis`(IN `filmnimetus` VARCHAR(50), IN `rezisoor` VARCHAR(50)) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER begin select * from film where filmnimetus=filmnimetus; update film set rezisoor=uusrezisoor where filmnimetus=filmnimetus; select * from film where filmnimetus=filmnimetus; end;
+---------------------------------------------------------------------------------
